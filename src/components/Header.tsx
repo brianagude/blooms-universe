@@ -35,7 +35,7 @@ export default function Header() {
     <header className="py-4 relative z-50">
       <div className="px-4 flex flex-col items-center justify-center sm:flex-row sm:justify-between sm:px-10">
         <Link href='/' className="font-kiante text-2xl leading-tight tracking-wide uppercase">Blooms Universe</Link>
-        <p className="text-sm sm:text-base font-extrabold leading-7 tracking-wide md:tracking-wider uppercase">{time} in USVI</p>
+        <p className="flex items-center gap-1 text-sm sm:text-base font-extrabold leading-7 tracking-wide md:tracking-wider uppercase">{time} <span className="!text-2xl">🇻🇮</span></p>
       </div>
     </header>
   );
