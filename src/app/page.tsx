@@ -11,6 +11,7 @@ export default function Home() {
             alt="painting of Kiante Springette" 
             width={188}
             height={254}
+            priority
             className="rounded-3xl border border-black"
           />
           <div className="bg-white p-4 w-full rounded-[32px] flex flex-col items-center justify-center gap-6 border border-green">
@@ -33,6 +34,7 @@ export default function Home() {
           src="/images/texture.jpg" 
           alt="texture made of images of fabric found in brooklyn" 
           fill
+          priority
           className="object-cover z-0"
         />
       </div>
