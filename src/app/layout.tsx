@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import Image from "next/image"
+import { Analytics } from "@vercel/analytics/next"
 import { TailwindHelper } from "@/components/TailwindHelper";
 
 const barlow = Barlow({
@@ -105,6 +106,7 @@ export default function RootLayout({
         {process.env.NODE_ENV === 'development' && <TailwindHelper />}
         <Footer/>
         <Image src="/images/background.jpg" alt="paper texture" fill/>
+        <Analytics/>
       </body>
     </html>
   );
