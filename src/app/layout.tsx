@@ -1,16 +1,49 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from 'next/font/local'
+import { Barlow } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
+import Image from "next/image"
+import { TailwindHelper } from "@/components/TailwindHelper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const barlow = Barlow({
+  variable: "--font-barlow",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"]
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const colby = localFont({
+  variable: "--font-colby",
+  src: [
+    {
+      path: './fonts/colby-wdblk.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/colby-wdblk.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+})
+
+const kiante = localFont({
+  variable: "--font-kiante",
+  src: [
+    {
+      path: './fonts/flipkeys-regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/flipkeys-regular.woff',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +56,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className={`${barlow.variable} ${kiante.variable} ${colby.variable} antialiased`}>
+      <body className="antialiased min-h-svh flex flex-col relative">
+        <Header/>
+        <main className="h-full flex flex-col flex-1 relative z-20">
+          {children}
+        </main>
+        {process.env.NODE_ENV === 'development' && <TailwindHelper />}
+        <Footer/>
+        <Image src="/images/background.jpg" alt="paper texture" fill/>
       </body>
     </html>
   );
