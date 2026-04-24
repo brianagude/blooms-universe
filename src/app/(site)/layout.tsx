@@ -101,7 +101,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`${barlow.variable} ${kiante.variable} ${colby.variable} antialiased`}
+			className={`${barlow.variable} ${kiante.variable} ${colby.variable} antialiased min-h-full`}
 		>
 			<body className="antialiased min-h-svh flex flex-col relative">
 				<Header />

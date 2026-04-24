@@ -14,8 +14,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className="antialiased">{children}</body>
+		<html
+				lang="en"
+				className="antialiased min-h-full"
+				// className={`${barlow.variable} ${kiante.variable} ${colby.variable} antialiased min-h-full`}
+			>
+			<body className="antialiased min-h-svh flex flex-col relative">
+				{children}
+			</body>
 		</html>
 	);
 }
