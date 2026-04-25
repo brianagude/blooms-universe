@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import { defineField, defineType } from 'sanity'
 
 export const collection = defineType({
@@ -13,12 +14,9 @@ export const collection = defineType({
       fields: [
         defineField({ name: 'title', title: 'Title', type: 'string' }),
         defineField({ name: 'descriptionHtml', title: 'Description', type: 'text' }),
+        defineField({ name: 'imageUrl', title: 'Collection Image', type: 'url' }),
         defineField({ name: 'sortOrder', title: 'Sort Order', type: 'string' }),
-        defineField({
-          name: 'slug',
-          title: 'Slug',
-          type: 'slug',
-        }),
+        defineField({ name: 'slug', title: 'Slug', type: 'slug' }),
       ],
     }),
   ],
@@ -26,11 +24,19 @@ export const collection = defineType({
     select: {
       title: 'store.title',
       subtitle: 'store.slug.current',
+      imageUrl: 'store.imageUrl',
     },
-    prepare({ title, subtitle }) {
+    prepare({ title, subtitle, imageUrl }: { title?: string; subtitle?: string; imageUrl?: string }) {
       return {
         title: title ?? 'Untitled Collection',
         subtitle: subtitle ? `/${subtitle}` : undefined,
+        media: imageUrl
+          ? createElement('img', {
+              src: imageUrl,
+              alt: title ?? '',
+              style: { width: '100%', height: '100%', objectFit: 'cover' },
+            })
+          : undefined,
       }
     },
   },

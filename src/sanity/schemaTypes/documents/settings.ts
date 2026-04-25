@@ -7,7 +7,8 @@ export const settings = defineType({
   groups: [
     { name: 'header', title: 'Header', default: true },
     { name: 'footer', title: 'Footer' },
-    { name: 'pageContent', title: 'Page Content' },
+    { name: 'news', title: 'Newsletter' },
+    { name: 'homePage', title: 'Home Page' },
   ],
   fields: [
     // ─── Header ──────────────────────────────────────────────────────────────
@@ -28,17 +29,16 @@ export const settings = defineType({
 
     // ─── Footer ──────────────────────────────────────────────────────────────
     defineField({
+      name: 'footerCopyright',
+      title: 'Footer Copyright text',
+      type: 'string',
+      group: 'footer',
+    }),
+    defineField({
       name: 'footerLinks',
       title: 'Footer Links',
       type: 'array',
       of: [{ type: 'link' }],
-      group: 'footer',
-    }),
-    defineField({
-      name: 'showNewsletter',
-      title: 'Show Newsletter Signup',
-      type: 'boolean',
-      initialValue: false,
       group: 'footer',
     }),
     defineField({
@@ -48,13 +48,63 @@ export const settings = defineType({
       group: 'footer',
     }),
 
-    // ─── Page Content ────────────────────────────────────────────────────────
+    // ─── Newsletter ──────────────────────────────────────────────────────────
+    defineField({
+      name: 'showNewsletter',
+      title: 'Show Newsletter Signup',
+      type: 'boolean',
+      initialValue: false,
+      group: 'news',
+    }),
+    defineField({
+      name: 'newsletterContent',
+      title: 'Newsletter Content',
+      description: 'Text displayed alongside the newsletter signup form.',
+      hidden: ({ document }) => !document?.showNewsletter,
+      group: 'news',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'H2', value: 'h2' },
+            { title: 'H3', value: 'h3' },
+            { title: 'H4', value: 'h4' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'Bold', value: 'strong' },
+              { title: 'Italic', value: 'em' },
+            ],
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  defineField({ name: 'href', title: 'URL', type: 'url' }),
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({ name: 'alt', title: 'Alt Text', type: 'string' }),
+          ],
+        },
+      ],
+    }),
+    // ─── Home Page ───────────────────────────────────────────────────────────
     defineField({
       name: 'homepageBackground',
       title: 'Homepage Background',
       description: 'Video takes priority over image when both are set.',
       type: 'object',
-      group: 'pageContent',
+      group: 'homePage',
       options: { collapsible: true, collapsed: false },
       fields: [
         defineField({
@@ -84,35 +134,6 @@ export const settings = defineType({
           hidden: ({ parent }) => parent?.backgroundType !== 'image',
         }),
       ],
-    }),
-    defineField({
-      name: 'aboutImage',
-      title: 'About Page Image',
-      type: 'image',
-      options: { hotspot: true },
-      group: 'pageContent',
-    }),
-    defineField({
-      name: 'aboutText',
-      title: 'About Page Text',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-          styles: [
-            { title: 'Normal', value: 'normal' },
-            { title: 'H2', value: 'h2' },
-            { title: 'H3', value: 'h3' },
-          ],
-          marks: {
-            decorators: [
-              { title: 'Bold', value: 'strong' },
-              { title: 'Italic', value: 'em' },
-            ],
-          },
-        },
-      ],
-      group: 'pageContent',
     }),
   ],
   preview: {

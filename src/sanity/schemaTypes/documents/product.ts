@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import { defineField, defineType } from 'sanity'
 
 export const product = defineType({
@@ -16,11 +17,9 @@ export const product = defineType({
         defineField({ name: 'vendor', title: 'Vendor', type: 'string' }),
         defineField({ name: 'productType', title: 'Product Type', type: 'string' }),
         defineField({ name: 'tags', title: 'Tags', type: 'string' }),
-        defineField({
-          name: 'slug',
-          title: 'Slug',
-          type: 'slug',
-        }),
+        defineField({ name: 'descriptionHtml', title: 'Description', type: 'text' }),
+        defineField({ name: 'previewImageUrl', title: 'Preview Image', type: 'url' }),
+        defineField({ name: 'slug', title: 'Slug', type: 'slug' }),
         defineField({
           name: 'priceRange',
           title: 'Price Range',
@@ -37,11 +36,19 @@ export const product = defineType({
     select: {
       title: 'store.title',
       subtitle: 'store.status',
+      imageUrl: 'store.previewImageUrl',
     },
-    prepare({ title, subtitle }) {
+    prepare({ title, subtitle, imageUrl }: { title?: string; subtitle?: string; imageUrl?: string }) {
       return {
         title: title ?? 'Untitled Product',
         subtitle: subtitle ? `Status: ${subtitle}` : undefined,
+        media: imageUrl
+          ? createElement('img', {
+              src: imageUrl,
+              alt: title ?? '',
+              style: { width: '100%', height: '100%', objectFit: 'cover' },
+            })
+          : undefined,
       }
     },
   },

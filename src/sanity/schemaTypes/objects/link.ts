@@ -42,13 +42,21 @@ export const link = defineType({
       options: {
         list: [
           { title: 'Home', value: '/' },
-          { title: 'About', value: '/about' },
           { title: 'Contact', value: '/contact' },
+          { title: 'Custom Page', value: 'page' },
           { title: 'Specific Product', value: 'product' },
           { title: 'Specific Collection', value: 'collection' },
         ],
       },
       hidden: ({ parent }) => parent?.linkType !== 'internal',
+    }),
+    defineField({
+      name: 'pageRef',
+      title: 'Page',
+      type: 'reference',
+      to: [{ type: 'page' }],
+      hidden: ({ parent }) =>
+        parent?.linkType !== 'internal' || parent?.internalPage !== 'page',
     }),
     defineField({
       name: 'productRef',
