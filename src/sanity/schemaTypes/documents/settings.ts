@@ -110,6 +110,18 @@ export const settings = defineType({
         },
       ],
     }),
+    defineField({
+      name: 'newsletterImage',
+      title: 'Newsletter Image',
+      description: 'Decorative image displayed above the signup form.',
+      type: 'image',
+      options: { hotspot: true },
+      hidden: ({ document }) => !document?.showNewsletter,
+      fields: [
+        defineField({ name: 'alt', title: 'Alt Text', type: 'string' }),
+      ],
+      group: 'news',
+    }),
     // ─── Home Page ───────────────────────────────────────────────────────────
     defineField({
       name: 'homepageBackground',

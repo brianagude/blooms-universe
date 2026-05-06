@@ -18,7 +18,8 @@ export const structure: StructureResolver = (S) =>
 				.child(
 					S.documentTypeList("product")
 						.title("Products")
-						.defaultOrdering([{ field: "store.status", direction: "asc" }]),
+						.defaultOrdering([{ field: "store.status", direction: "asc" }])
+						.initialValueTemplates([]),
 				),
 
 			S.listItem()
@@ -26,7 +27,8 @@ export const structure: StructureResolver = (S) =>
 				.child(
 					S.documentTypeList("collection")
 						.title("Collections")
-						.defaultOrdering([{ field: "store.title", direction: "asc" }]),
+						.defaultOrdering([{ field: "store.title", direction: "asc" }])
+						.initialValueTemplates([]),
 				),
 
 			S.divider(),

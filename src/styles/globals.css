@@ -40,3 +40,7 @@ body {
   font-family: var(--font-barlow), sans-serif;
   color: var(--foreground);
 }
+
+button {
+  cursor: pointer;
+}

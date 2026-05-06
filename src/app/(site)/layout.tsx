@@ -1,50 +1,11 @@
 import type { Metadata } from "next";
-import { Barlow } from "next/font/google";
-import localFont from "next/font/local";
-import "@/styles/globals.css"
 import { Analytics } from "@vercel/analytics/next";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { TailwindHelper } from "@/components/TailwindHelper";
-
-const barlow = Barlow({
-	variable: "--font-barlow",
-	subsets: ["latin"],
-	weight: ["300", "400", "500", "600", "700", "800"],
-});
-
-const colby = localFont({
-	variable: "--font-colby",
-	src: [
-		{
-			path: "../fonts/colby-wdblk.woff2",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../fonts/colby-wdblk.woff2",
-			weight: "400",
-			style: "normal",
-		},
-	],
-});
-
-const kiante = localFont({
-	variable: "--font-kiante",
-	src: [
-		{
-			path: "../fonts/flipkeys-regular.woff2",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../fonts/flipkeys-regular.woff",
-			weight: "400",
-			style: "normal",
-		},
-	],
-});
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { settingsQuery } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://www.bloomsuniverse.com"),
@@ -54,7 +15,7 @@ export const metadata: Metadata = {
 		template: "%s | Blooms Universe",
 	},
 	description:
-		"Blooms Universe creates fine gold jewelry inspired by the founder’s Caribbean roots, blending island heritage, cultural storytelling, and New York sophistication into timeless handcrafted pieces.",
+		"Blooms Universe creates fine gold jewelry inspired by the founder's Caribbean roots, blending island heritage, cultural storytelling, and New York sophistication into timeless handcrafted pieces.",
 	applicationName: "Blooms Universe",
 	keywords: [
 		"fine jewelry",
@@ -93,26 +54,31 @@ export const metadata: Metadata = {
 	category: "luxury goods",
 };
 
-export default function RootLayout({
+export default async function SiteLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const { data: settings } = await sanityFetch({ query: settingsQuery });
+
 	return (
-		<html
-			lang="en"
-			className={`${barlow.variable} ${kiante.variable} ${colby.variable} antialiased min-h-full`}
-		>
-			<body className="antialiased min-h-svh flex flex-col relative">
-				<Header />
-				<main className="h-full flex flex-col flex-1 relative z-20">
-					{children}
-				</main>
-				{process.env.NODE_ENV === "development" && <TailwindHelper />}
-				<Footer />
-				<Image src="/images/background.jpg" alt="paper texture" fill />
-				<Analytics />
-			</body>
-		</html>
+		<>
+			<Header headerLinks={settings?.headerLinks} logo={settings?.logo} />
+			<main className="h-full flex flex-col flex-1 relative z-20">
+				{children}
+			</main>
+			{process.env.NODE_ENV === "development" && <TailwindHelper />}
+			<Footer
+				footerCopyright={settings?.footerCopyright}
+				footerLinks={settings?.footerLinks}
+				socialMedia={settings?.socialMedia}
+				showNewsletter={settings?.showNewsletter}
+				newsletterImage={settings?.newsletterImage}
+				newsletterContent={settings?.newsletterContent}
+			/>
+			<Image src="/images/background.jpg" alt="paper texture" fill />
+			<SanityLive />
+			<Analytics />
+		</>
 	);
 }
