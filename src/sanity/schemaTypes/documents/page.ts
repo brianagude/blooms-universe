@@ -57,6 +57,22 @@ export const page = defineType({
           fields: [
             defineField({ name: 'alt', title: 'Alt Text', type: 'string' }),
             defineField({ name: 'caption', title: 'Caption', type: 'string' }),
+            defineField({ 
+              name: 'width', 
+              title: 'Max Width', 
+              type: 'number',
+              options: {
+                list: [
+                  {title: '120px', value: 120},
+                  {title: '200px', value: 200},
+                  {title: '320px', value: 320},
+                  {title: '480px', value: 480},
+                  {title: '640px', value: 640},
+                  {title: '1024px', value: 1024},
+                  {title: '1280px', value: 1280},
+                ]
+              }
+            }),
           ],
         },
       ],

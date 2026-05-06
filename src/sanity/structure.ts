@@ -1,43 +1,39 @@
-import type { StructureResolver } from 'sanity/structure'
-import { CogIcon } from '@sanity/icons'
+import { CogIcon } from "@sanity/icons";
+import type { StructureResolver } from "sanity/structure";
 
 export const structure: StructureResolver = (S) =>
-  S.list()
-    .title('Content')
-    .items([
-      // Settings singleton — always a single document
-      S.listItem()
-        .title('Settings')
-        .icon(CogIcon)
-        .child(
-          S.document()
-            .schemaType('settings')
-            .documentId('siteSettings')
-        ),
+	S.list()
+		.title("Content")
+		.items([
+			// Custom pages
+			S.listItem()
+				.title("Pages")
+				.child(S.documentTypeList("page").title("Pages")),
 
-      S.divider(),
+			S.divider(),
 
-      // Custom pages
-      S.listItem()
-        .title('Pages')
-        .child(S.documentTypeList('page').title('Pages')),
+			// Shopify sync — view only, managed by Sanity Connect
+			S.listItem()
+				.title("Products")
+				.child(
+					S.documentTypeList("product")
+						.title("Products")
+						.defaultOrdering([{ field: "store.status", direction: "asc" }]),
+				),
 
-      S.divider(),
+			S.listItem()
+				.title("Collections")
+				.child(
+					S.documentTypeList("collection")
+						.title("Collections")
+						.defaultOrdering([{ field: "store.title", direction: "asc" }]),
+				),
 
-      // Shopify sync — view only, managed by Sanity Connect
-      S.listItem()
-        .title('Products')
-        .child(
-          S.documentTypeList('product')
-            .title('Products')
-            .defaultOrdering([{ field: 'store.status', direction: 'asc' }])
-        ),
+			S.divider(),
 
-      S.listItem()
-        .title('Collections')
-        .child(
-          S.documentTypeList('collection')
-            .title('Collections')
-            .defaultOrdering([{ field: 'store.title', direction: 'asc' }])
-        ),
-    ])
+			// Settings singleton — always a single document
+			S.listItem()
+				.title("Settings")
+				.icon(CogIcon)
+				.child(S.document().schemaType("settings").documentId("siteSettings")),
+		]);

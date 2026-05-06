@@ -42,7 +42,6 @@ export const link = defineType({
       options: {
         list: [
           { title: 'Home', value: '/' },
-          { title: 'Contact', value: '/contact' },
           { title: 'Custom Page', value: 'page' },
           { title: 'Specific Product', value: 'product' },
           { title: 'Specific Collection', value: 'collection' },
