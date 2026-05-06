@@ -91,7 +91,6 @@ export default function NewsletterPopup({ image, content, onClose }: Props) {
 			<div className="bg-white p-4 w-full rounded-[32px] flex flex-col items-center justify-center gap-6 border border-green relative">
 				{content && content.length > 0 && (
 					<div className="text-center space-y-2 w-full max-w-md mx-auto">
-						{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 						<PortableText
 							value={content as any}
 							components={portableTextComponents as any}

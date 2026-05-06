@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { TailwindHelper } from "@/components/TailwindHelper";
-import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { SanityLive, sanityFetch } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
