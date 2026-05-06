@@ -9,6 +9,7 @@ import type {
 	SanityImageRef,
 	SanityLink as SanityLinkType,
 } from "@/sanity/types";
+import { selectItemCount, useCart } from "@/store/cart";
 
 type Props = {
 	headerLinks?: SanityLinkType[] | null;
@@ -17,6 +18,8 @@ type Props = {
 
 export default function Header({ headerLinks, logo }: Props) {
 	const [time, setTime] = useState<string>("");
+	const itemCount = useCart(selectItemCount);
+	const openCart = useCart((s) => s.openCart);
 
 	useEffect(() => {
 		const updateTime = () => {
@@ -63,19 +66,33 @@ export default function Header({ headerLinks, logo }: Props) {
 
 				{headerLinks && headerLinks.length > 0 && (
 					<nav className="gap-7 hidden lg:flex">
-						{headerLinks.map((link, i) => (
-							<SanityLink key={i} link={link} className={linkClassName} />
+						{headerLinks.map((link) => (
+							<SanityLink
+								key={link.text}
+								link={link}
+								className={linkClassName}
+							/>
 						))}
+						<button
+							type="button"
+							className={linkClassName}
+							onClick={openCart}
+							aria-label={`Open cart, ${itemCount} item${itemCount !== 1 ? "s" : ""}`}
+						>
+							Cart{itemCount > 0 && <> ({itemCount})</>}
+						</button>
 					</nav>
 				)}
 
-				<button type="button" className={`${linkClassName} lg:hidden`}>
-					Menu
-				</button>
+				<div className="flex items-center gap-4">
+					<button type="button" className={`${linkClassName} lg:hidden`}>
+						Menu
+					</button>
 
-				<p className="hidden lg:flex items-end justify-center gap-1 text-base font-extrabold tracking-wide md:tracking-wider uppercase w-36 text-right">
-					{time} <span className="!text-2xl !leading-none">🇻🇮</span>
-				</p>
+					<p className="hidden lg:flex items-end justify-center gap-1 text-base font-extrabold tracking-wide md:tracking-wider uppercase w-36 text-right">
+						{time} <span className="!text-2xl !leading-none">🇻🇮</span>
+					</p>
+				</div>
 			</div>
 		</header>
 	);

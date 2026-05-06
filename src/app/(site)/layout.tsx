@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import Image from "next/image";
+import Cart from "@/components/Cart";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { TailwindHelper } from "@/components/TailwindHelper";
@@ -76,8 +76,8 @@ export default async function SiteLayout({
 				newsletterImage={settings?.newsletterImage}
 				newsletterContent={settings?.newsletterContent}
 			/>
-			<Image src="/images/background.jpg" alt="paper texture" fill />
-			<SanityLive />
+			<Cart />
+<SanityLive />
 			<Analytics />
 		</>
 	);

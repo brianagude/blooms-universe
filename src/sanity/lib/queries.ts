@@ -6,8 +6,8 @@ const linkProjection = `
   linkType,
   internalPage,
   "pageSlug": pageRef->slug.current,
-  "productSlug": productRef->slug.current,
-  "collectionSlug": collectionRef->slug.current,
+  "productSlug": productRef->store.slug.current,
+  "collectionSlug": collectionRef->store.slug.current,
   url,
   email,
   phone,
@@ -20,6 +20,14 @@ const imageProjection = `
   crop,
   asset->{ _id, _type, metadata { lqip } },
 `
+
+export const allProductSlugsQuery = defineQuery(
+  `*[_type == "product" && defined(store.slug.current)].store.slug.current`
+)
+
+export const allCollectionSlugsQuery = defineQuery(
+  `*[_type == "collection" && defined(store.slug.current)].store.slug.current`
+)
 
 export const homepageBackgroundQuery = defineQuery(`
   *[_type == "settings"][0].homepageBackground {

@@ -27,7 +27,10 @@
 }
 
 body {
-  background: var(--background);
+  background-image: url('/images/background.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
   color: var(--foreground);
   font-family: "Barlow", sans-serif;
 }

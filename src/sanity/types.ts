@@ -28,7 +28,7 @@ export type SanityLink = {
   text: string
   linkType: 'internal' | 'external' | 'email' | 'phone'
   // Only present when linkType === 'internal'
-  internalPage?: 'home' | 'page' | 'product' | 'collection' | null
+  internalPage?: '/' | 'page' | 'product' | 'collection' | null
   pageSlug?: string | null
   productSlug?: string | null
   collectionSlug?: string | null

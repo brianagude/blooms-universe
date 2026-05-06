@@ -5,7 +5,7 @@ function resolveHref(link: SanityLinkType): string {
   switch (link.linkType) {
     case "internal":
       switch (link.internalPage) {
-        case "home":      return "/";
+        case "/":         return "/";
         case "page":      return link.pageSlug       ? `/${link.pageSlug}`               : "/";
         case "product":   return link.productSlug    ? `/products/${link.productSlug}`   : "/";
         case "collection":return link.collectionSlug ? `/collections/${link.collectionSlug}` : "/";
