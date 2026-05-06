@@ -32,6 +32,18 @@ export type ShopifyOption = {
   values: string[]
 }
 
+export type ShopifySeo = {
+  title: string | null
+  description: string | null
+}
+
+export type ShopifyMetafield = {
+  namespace: string
+  key: string
+  value: string
+  type: string
+}
+
 export type ShopifyProduct = {
   id: string
   handle: string
@@ -46,6 +58,9 @@ export type ShopifyProduct = {
     minVariantPrice: { amount: string; currencyCode: string }
     maxVariantPrice: { amount: string; currencyCode: string }
   }
+  seo: ShopifySeo
+  collections: { edges: Array<{ node: { title: string; handle: string } }> }
+  metafields: Array<ShopifyMetafield | null>
 }
 
 export type ShopifyCollectionProduct = {
@@ -67,6 +82,7 @@ export type ShopifyCollection = {
   descriptionHtml: string
   image: ShopifyImage | null
   products: { edges: Array<{ node: ShopifyCollectionProduct }> }
+  seo: ShopifySeo
 }
 
 export type CheckoutLineItem = {

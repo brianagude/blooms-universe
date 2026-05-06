@@ -8,6 +8,7 @@ import { collection } from './documents/collection'
 
 // Objects
 import { link } from './objects/link'
+import { seo } from './objects/seo'
 import { socialMedia } from './objects/socialMedia'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
@@ -19,6 +20,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     collection,
     // Objects
     link,
+    seo,
     socialMedia,
   ],
 }

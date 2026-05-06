@@ -23,6 +23,18 @@ export type SanityImageWithLqip = {
   crop?: { top: number; bottom: number; left: number; right: number }
 }
 
+export type SanitySeo = {
+  title?: string | null
+  description?: string | null
+  image?: {
+    asset?: {
+      _id: string
+      _type: string
+      url: string
+    } | null
+  } | null
+}
+
 // Resolved link object — reference slugs are projected inline by the GROQ query
 export type SanityLink = {
   text: string
@@ -125,4 +137,5 @@ export type Settings = {
   newsletterImage?: (SanityImageWithLqip & { alt?: string }) | null
   newsletterContent?: NewsletterBlock[] | null
   homepageBackground?: HomepageBackground | null
+  seo?: SanitySeo | null
 }

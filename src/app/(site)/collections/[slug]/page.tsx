@@ -17,7 +17,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { slug } = await params;
 	const collection = await getCollectionByHandle(slug);
 	if (!collection) return {};
-	return { title: collection.title };
+
+	const title = collection.seo.title || collection.title;
+	const description =
+		collection.seo.description ||
+		collection.descriptionHtml.replace(/<[^>]*>/g, "").substring(0, 160) ||
+		null;
+	const ogImage = collection.image?.url;
+
+	return {
+		title,
+		...(description && { description }),
+		openGraph: {
+			title,
+			...(description && { description }),
+			...(ogImage && { images: [{ url: ogImage }] }),
+		},
+		twitter: {
+			title,
+			...(description && { description }),
+			...(ogImage && { images: [ogImage] }),
+		},
+	};
 }
 
 export default async function CollectionPage({ params }: Props) {

@@ -38,6 +38,15 @@ const IMAGE_FRAGMENT = `
   height
 `
 
+// Update these identifiers to match your Shopify metafield namespace/key pairs
+const PRODUCT_METAFIELD_IDENTIFIERS = `
+  identifiers: [
+    { namespace: "custom", key: "care_instructions" },
+    { namespace: "custom", key: "materials" },
+    { namespace: "custom", key: "dimensions" },
+  ]
+`
+
 const PRODUCT_BY_HANDLE_QUERY = `
   query ProductByHandle($handle: String!) {
     product(handle: $handle) {
@@ -72,6 +81,16 @@ const PRODUCT_BY_HANDLE_QUERY = `
         minVariantPrice { amount currencyCode }
         maxVariantPrice { amount currencyCode }
       }
+      seo { title description }
+      collections(first: 5) {
+        edges { node { title handle } }
+      }
+      metafields(${PRODUCT_METAFIELD_IDENTIFIERS}) {
+        namespace
+        key
+        value
+        type
+      }
     }
   }
 `
@@ -84,6 +103,7 @@ const COLLECTION_BY_HANDLE_QUERY = `
       title
       descriptionHtml
       image { ${IMAGE_FRAGMENT} }
+      seo { title description }
       products(first: 50) {
         edges {
           node {

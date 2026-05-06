@@ -9,6 +9,7 @@ export const settings = defineType({
     { name: 'footer', title: 'Footer' },
     { name: 'news', title: 'Newsletter' },
     { name: 'homePage', title: 'Home Page' },
+    { name: 'seo', title: 'SEO' },
   ],
   fields: [
     // ─── Header ──────────────────────────────────────────────────────────────
@@ -158,6 +159,15 @@ export const settings = defineType({
           hidden: ({ parent }) => parent?.backgroundType !== 'image',
         }),
       ],
+    }),
+
+    // ─── SEO ─────────────────────────────────────────────────────────────────
+    defineField({
+      name: 'seo',
+      title: 'Global SEO Defaults',
+      type: 'seo',
+      description: 'Fallback SEO values used when a page has no SEO fields set.',
+      group: 'seo',
     }),
   ],
   preview: {

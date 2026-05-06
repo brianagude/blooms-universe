@@ -4,12 +4,17 @@ export const page = defineType({
   name: 'page',
   title: 'Pages',
   type: 'document',
+  groups: [
+    { name: 'content', title: 'Content', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -20,6 +25,7 @@ export const page = defineType({
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'content',
@@ -76,6 +82,13 @@ export const page = defineType({
           ],
         },
       ],
+    }),
+
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {

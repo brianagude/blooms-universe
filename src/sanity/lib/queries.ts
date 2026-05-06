@@ -21,6 +21,17 @@ const imageProjection = `
   asset->{ _id, _type, metadata { lqip } },
 `
 
+// Reusable projection for SEO fields — asset url is needed for OG image
+const seoProjection = `
+  seo {
+    title,
+    description,
+    image {
+      asset->{ _id, _type, url },
+    },
+  }
+`
+
 export const allProductSlugsQuery = defineQuery(
   `*[_type == "product" && defined(store.slug.current)].store.slug.current`
 )
@@ -73,5 +84,21 @@ export const settingsQuery = defineQuery(`
         ${imageProjection}
       },
     },
+    ${seoProjection},
+  }
+`)
+
+export const pageBySlugQuery = defineQuery(`
+  *[_type == "page" && slug.current == $slug][0] {
+    title,
+    "slug": slug.current,
+    content[] {
+      ...,
+      _type == "image" => {
+        ...,
+        asset->
+      }
+    },
+    ${seoProjection},
   }
 `)
